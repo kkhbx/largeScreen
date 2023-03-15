@@ -3,7 +3,7 @@
     <img
       :class="transStyle.startRotate ? 'startImg' : ''"
       :style="imgStyle"
-      :src="imgStyle.imageAdress"
+      :src="setImage(imgStyle.imageAdress)"
       alt=""
     />
   </div>
@@ -58,7 +58,15 @@ export default {
     this.options = this.value;
   },
   mounted() {},
-  methods: {}
+  methods: {
+    setImage(row) {
+      if (row.indexOf('@/assets/lineImage') !== -1) {
+        const str = row.replace('@/assets/lineImage', '')
+        const str2 = require(`@/assets/lineImage${str}.png`)
+        return str2
+      }
+    }
+  }
 };
 </script>
 

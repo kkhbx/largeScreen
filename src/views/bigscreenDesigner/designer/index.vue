@@ -201,7 +201,7 @@
               width: bigscreenWidth + 'px',
               height: bigscreenHeight + 'px',
               'background-color': dashboard.backgroundColor,
-              'background-image': 'url(' + dashboard.backgroundImage + ')',
+              'background-image': 'url(' + setImage(dashboard.backgroundImage) + ')',
               'background-position': '0% 0%',
               'background-size': '100% 100%',
               'background-repeat': 'initial',
@@ -214,7 +214,7 @@
             @dragover="dragOver($event)"
           >
             <div v-if="grade" class="bg-grid"></div>
-          
+
             <widget
               ref="widgets"
               v-for="(widget, index) in widgets"
@@ -450,12 +450,19 @@ export default {
     this.widgets = [];
     // 如果是新的设计工作台
     this.initEchartData();
-    
+
     window.addEventListener("mouseup", () => {
       this.grade = false;
     });
   },
   methods: {
+    setImage(row) {
+      if (row.indexOf('@/assets/lineImage') !== -1) {
+        const str = row.replace('@/assets/lineImage', '')
+        const str2 = require(`@/assets/lineImage${str}.png`)
+        return str2
+      }
+    },
     /**
      * @description: 恢复
      * @param {*}

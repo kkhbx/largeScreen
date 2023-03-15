@@ -1,6 +1,6 @@
 <!--
  * @Descripttion: 大屏顶部操操按钮
- * @version: 
+ * @version:
  * @Author: qianlishi
  * @Date: 2022-05-14 11:54:07
  * @LastEditors: qianlishi
@@ -115,6 +115,7 @@ export default {
     },
     // 预览
     viewScreen() {
+      debugger
       let routeUrl = this.$router.resolve({
         path: "/screen/preview",
         query: { reportCode: this.$route.query.reportCode }

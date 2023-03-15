@@ -1,6 +1,6 @@
 <!--
  * @Descripttion: 大屏设计器
- * @version: 
+ * @version:
  * @Author: qianlishi
  * @Date: 2022-05-12 11:05:48
  * @LastEditors: qianlishi
@@ -32,7 +32,7 @@
           width: bigscreenWidth + 'px',
           height: bigscreenHeight + 'px',
           'background-color': dashboard.backgroundColor,
-          'background-image': 'url(' + dashboard.backgroundImage + ')',
+          'background-image': 'url(' + setImage(dashboard.backgroundImage) + ')',
           'background-position': '0% 0%',
           'background-size': '100% 100%',
           'background-repeat': 'initial',
@@ -143,6 +143,13 @@ export default {
     this.loadOption();
   },
   methods: {
+    setImage(row) {
+      if (row.indexOf('@/assets/lineImage') !== -1) {
+        const str = row.replace('@/assets/lineImage', '')
+        const str2 = require(`@/assets/lineImage${str}.png`)
+        return str2
+      }
+    },
     // 加载大屏配置
     loadOption() {
       this.widgetOptions = screenConfig["options"];

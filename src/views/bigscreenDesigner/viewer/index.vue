@@ -21,6 +21,8 @@
 <script>
 import widget from "../designer/widget/temp";
 import { detailDashboard } from "@/api/bigscreen";
+import TEST_DATA from "@/data/test.json"
+
 export default {
   name: "Login",
   components: {
@@ -33,12 +35,15 @@ export default {
     };
   },
   mounted() {
+    debugger
     this.getData();
   },
   methods: {
     async getData() {
       const reportCode = this.$route.query.reportCode;
-      const { code, data } = await detailDashboard(reportCode);
+      // const { code, data } = await detailDashboard(reportCode);
+      const { code, data } = TEST_DATA;
+      debugger
       if (code != 200) return;
       const equipment = document.body.clientWidth;
       const ratioEquipment = equipment / data.dashboard.width;
@@ -46,7 +51,7 @@ export default {
         width: data.dashboard.width + "px",
         height: data.dashboard.height + "px",
         "background-color": data.dashboard.backgroundColor,
-        "background-image": "url(" + data.dashboard.backgroundImage + ")",
+        "background-image": "url(" + this.setImage(data.dashboard.backgroundImage) + ")",
         "background-position": "0% 0%",
         "background-size": "100% 100%",
         "background-repeat": "initial",
@@ -57,6 +62,13 @@ export default {
         "transform-origin": "0 0"
       };
       this.widgets = data.dashboard.widgets;
+    },
+    setImage(row) {
+      if (row.indexOf('@/assets/lineImage') !== -1) {
+        const str = row.replace('@/assets/lineImage', '')
+        const str2 = require(`@/assets/lineImage${str}.png`)
+        return str2
+      }
     }
   }
 };
